@@ -11,7 +11,7 @@ def main():
     iris = loadData()
 
     # randomize the data
-    data_train, data_test, target_train, target_test = train_test_split(iris.data, iris.target)
+    data_train, data_test, target_train, target_test = train_test_split(iris.data, iris.target, test_size=0.33)
 
     # Get the Gaussian Classifier
     #classifier = GaussianNB()
