@@ -1,0 +1,13 @@
+* Sample Python Code
+#+BEGIN_SRC python
+x = 4
+y = 6
+if x < y
+  print("Hola!")
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC python
+
+#+END_SRC
