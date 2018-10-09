@@ -1,0 +1,2 @@
+Remember to StandardScaler().fit in the fit function and the predict function.
+Then, do the transform function right after.
