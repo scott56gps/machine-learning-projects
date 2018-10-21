@@ -1,0 +1,38 @@
+* Desgin
+** What is due this weekend?
+   1. Create a class for your decision tree classifier.
+   2. Ensure that you can read in a dataset with descrete values and send it to your classifier.
+      1. Discretize the dataset.
+   3. 
+
+** What are the base cases?
+   
+** Try to think of the algorithm
+   Do the algorithm on paper
+** Make function that calculates Entropy
+   Goals for today!
+   - Go to Idaho Falls with Nellie
+   - Finish my Machine Learning by 3PM
+   - Go to the Temple
+   - Get shoes and groceries in Idaho Falls with Nellie
+   - Carve Pumpkins with Nellie
+
+   #+BEGIN_SRC python
+     import math
+     def calculateEntropy(labels):
+         # Make Lambda function
+         calculate_probability = lambda unique_label : -float(labels.count(unique_label)) / len(labels) * math.log(float(labels.count(unique_label)) / len(labels), 2)
+
+         # Make the set of unique labels
+         unique_labels = list(set(labels))
+
+         # Calculate the total entropy based upon each label
+         entropy = sum([calculate_probability(unique_label) for unique_label in unique_labels])
+
+         return entropy
+     return calculateEntropy(['Yes', 'No', 'Yes', 'No'])
+
+   #+END_SRC
+
+   #+RESULTS:
+   : 1.52192809489

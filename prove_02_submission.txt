@@ -1,0 +1,52 @@
+When your assignment is complete, please answer the questions in this text file and upload it to I-Learn.
+
+1. Please provide the URL of your public GitHub repository.
+https://github.com/scott56gps/machine-learning-projects
+
+2. Briefly describe your overall approach to the task and highlight the most difficult part of this assignment.
+I started out by visualizing what the Euclidian Distance Algorithm did.  I then started with that part.  I thought that if I got that down,
+the rest would be easy.  It turned out that the hardest part was what to do with the distances after I got them.
+
+The hardest part of this assignment was understanding what the data and target information represented, and what I was trying to do in the
+context of the algorithm and program.  Once I understood this, I finished the assignment quickly.
+
+3. Briefly describe your process for handling numeric data on different scales (i.e., normalizing).
+I did not understand this part of the assignment or topic that well.  I know that it means to convert the data values to a standard that
+gives a fair representation of all the data.  It converts the data into a way it can be measured by standard deviation, instead of literal
+distance.
+
+I imported from sk_learn a package names StandardScaler.  This scaled the data, thus normalizing it I believe. 
+
+4. Describe your results for the Iris data set. (For example, what level of accuracy did you see for different values of K?
+I found that for higher values of k (k = 8), the accuracy tended to be higher.  Yet, for k = 5, the accuracy stayed somewhat around the 30s.
+For lower k, I found the accuracy was lower.
+
+5. How did your implementation compare to existing implementations?
+I think my implementation is regular compared to existing implementations.  I included an option for a k in the fit method, which I think adds
+a convenient feature.
+
+I did not test my implementation against other existing implementations, so I do not know how it fares against an existing implementation.
+
+
+6. Describe anything you did to go above and beyond the minimum standard requirements.
+I created an interface to load 2 different data sets: the IRIS and Digits data sets.
+
+I attempted to read in JSON data to describe the dictionary required for train_test_split.  After looking at the documentation for the IRIS dataset from
+sklearn, I learned that the dataset was returned as a "dictionary-like" object.  For some reason, I was not able to replicate the same structure from a JSON
+file.
+
+
+7. Please select the category you feel best describes your assignment:
+A - Some attempt was made
+B - Developing, but significantly deficient
+C - Slightly deficient, but still mostly adequate
+D - Meets requirements
+E - Shows creativity and excels above and beyond requirements
+
+
+8. Provide a brief justification (1-2 sentences) for selecting that category.
+D.
+
+Even though I did implement some extra features, such as searching another dataset than IRIS and doing thourough work in reading JSON data, I feel my
+program could still have been made better.  I know that it is average, but I feel that through the effort I put into this assignment, I understand more
+about the algorithm and how it applies to the dataset.  There is still more I can understand about data normalization and pre-processing the data.

@@ -7,6 +7,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import NearestNeighbors
 import math
 import re
 import json
@@ -32,7 +33,7 @@ def main():
     data_test = scaler.transform(data_test)
 
     # Get the model
-    model = classifier.fit(data_train, target_train)
+    model = classifier.fit(data_train, target_train, 5)
 
     # Predict Data
     targets_predicted = model.predict(data_test)
@@ -54,14 +55,15 @@ def readFile():
 
 # My Custom Model
 class HardCodedModel(object):
-    def __init__(self, data_train, target_train):
+    def __init__(self, data_train, target_train, k):
         self.data_train = data_train
         self.target_train = target_train
+        self.k = k
         pass
 
     # I think here is where I will implement the K-Neighbor algorithm
     def predict(self, data_test):
-        predictions = self.kNeighborAlgorithm(data_test, self.data_train, self.target_train, 5)
+        predictions = self.kNeighborAlgorithm(data_test, self.data_train, self.target_train, self.k)
 
         return predictions
 
@@ -111,8 +113,8 @@ class HardCodedClassifier(object):
     def __init__(self):
         pass
 
-    def fit(self, data_train, target_train):
-        return HardCodedModel(data_train, target_train)
+    def fit(self, data_train, target_train, k):
+        return HardCodedModel(data_train, target_train, k)
 
 # Load Data
 def loadData():
