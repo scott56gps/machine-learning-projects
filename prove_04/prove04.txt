@@ -1,0 +1,39 @@
+When your assignment is complete, please answer the questions in this text file and upload it to I-Learn.
+
+
+1. Please provide a link to your classifier in your public GitHub repo.
+https://github.com/scott56gps/machine-learning-projects/tree/master/prove_04
+
+
+2. Briefly describe your overall approach to the task and highlight the most difficult part of this assignment.
+I started out by trying to conceptualize the problem on paper.  First, I attacked the mathematical function.  Once I had that down, I went to the recursion part of putting the tree together.
+
+What was difficult for me was visualizing in my mind what a tree would look like.  Only after reading over the book and spending some time thinking about it did I get the concept.  But, when
+I understood the problem on paper, writing it was very easy.
+
+
+3. Describe the dataset that you used.
+I used the loan dataset we used in class.  Another dataset I used was the car evaluation dataset from UCI.
+
+
+4. Describe your results on this dataset. (e.g., What was the size of the tree? How did your implementation compare to existing implementations? How did your decision tree compare to your kNN classifier)
+I was surprised that on each of these datasets, I got 100% accuracy!  The car dataset was quite large, and the decision tree took as long for this dataset to compile and run as it did for the
+loan dataset.  I tried implementing the scikit learn DecisionTreeClassifier, but I did not finish it.  This is due to Scikit needing numerical values, and I was using string values.
+
+
+5. If applicable, please describe anything you did to go above and beyond and the results you saw.
+I learned by trying to implement the scikit decision tree that the scikit library only takes numerical values.  This helps me by knowing what I should do in the future if I want
+to use this library.
+
+
+6. Please select the category you feel best describes your assignment:
+A - Some attempt was made
+B - Developing, but significantly deficient
+C - Slightly deficient, but still mostly adequate
+D - Meets requirements
+->E - Shows creativity and excels above and beyond requirements
+
+7. Provide a brief justification (1-2 sentences) for selecting that category.
+For this assignment, I collaborated with many people.  To name a few, Adly Thebaud, Daniel Craig and LeVan Smith.  By meeting with and working with them, I learned more about how I was
+doing the assignment, and different ways I can visualize building the tree.  I felt that because of my collaboration, my learning was greatly benefitted, and my final project shows the
+things I learned about recursion and this concept in general.

@@ -2,6 +2,7 @@ import math
 import sys
 import pandas as pd
 import numpy as np
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
 # A Tree must have nodes
@@ -16,10 +17,15 @@ class DecisionTreeModel(object):
         self.tree = tree
 
     def traverseTree(self, requests, tree, attribute):
-        if (type(tree[attribute][requests[attribute]]) is str):
-            return tree[attribute][requests[attribute]]
+        valueForCurrentAttribute = requests[attribute]
+        if valueForCurrentAttribute not in tree[attribute].keys():
+            # Find another value to send along
+            # For now, just send nothing
+            return "NO_VALUE"
+        elif (type(tree[attribute][valueForCurrentAttribute]) is str):
+            return tree[attribute][valueForCurrentAttribute]
         else:
-            return self.traverseTree(requests, tree[attribute][requests[attribute]], tree[attribute][requests[attribute]].keys()[0])
+            return self.traverseTree(requests, tree[attribute][valueForCurrentAttribute], tree[attribute][valueForCurrentAttribute].keys()[0])
 
     def predict(self, targets):
         return self.traverseTree(targets, self.tree, self.tree.keys()[0])
@@ -43,9 +49,6 @@ class DecisionTreeClassifier(object):
 
     # This function takes an attribute (such as income) and calculates its Information Gain
     def calculateInfoGain(self, feature, targets):
-        # Lambda calculates Entropy for one unique attribute
-        #calculate_entropy = lambda unique_attribute :
-
         # OK, so get a unique list of the attributes
         unique_attributes = list(set(feature))
         entropies = {}
@@ -88,7 +91,6 @@ class DecisionTreeClassifier(object):
 
         # Use the unique values for the best feature to be branches of this node in the tree
         tree[bestFeature] = dict.fromkeys(list(set(features[bestFeature])), {})
-        #print tree[bestFeature]
 
         for branch in tree[bestFeature]:
             newFeatures = {}
@@ -124,10 +126,12 @@ def main():
     targets = data_train_frame.iloc[:, -1].values
     data_train_frame = data_train_frame.drop(data_train_frame.columns[-1], axis=1)
 
+    training_data, testing_data, training_targets, testing_targets = train_test_split(data_train_frame, targets, test_size=0.33)
+
     # Format the data into a dictionary
     data_train = {}
-    for column in data_train_frame.columns:
-        data_train[column] = list(data_train_frame.loc[:, column].values)
+    for column in training_data.columns:
+        data_train[column] = list(training_data.loc[:, column].values)
 
     #data_train = {'credit_score': ['Good', 'Good', 'Good', 'Good', 'Average', 'Average', 'Average', 'Average', 'Low', 'Low', 'Low', 'Low'],
     #              'income': ['High', 'High', 'Low', 'Low', 'High', 'Low', 'High', 'Low', 'High', 'High', 'Low', 'Low'],
@@ -135,17 +139,17 @@ def main():
     #targets = ['Yes', 'Yes', 'Yes', 'No', 'Yes', 'No', 'Yes', 'No', 'Yes', 'No', 'No', 'No']
     #value_names = ['credit_score', 'income', 'collateral']
 
-    data_train_values = data_train_frame.to_dict('records')
+    data_test_dict = testing_data.to_dict('records')
 
     classifier = DecisionTreeClassifier()
-    model = classifier.fit(data_train, targets)
+    model = classifier.fit(data_train, training_targets)
 
     # OK, so now each of the data_train_values should correspond with a target
     targets_predicted = []
-    for value in data_train_values:
-        targets_predicted.append(model.predict(value))
+    for testing_value in data_test_dict:
+        targets_predicted.append(model.predict(testing_value))
 
-    accuracy = accuracy_score(targets, targets_predicted)
+    accuracy = accuracy_score(testing_targets, targets_predicted)
     print "Accuracy: " + str("{:.2f}".format(accuracy * 100)) + "%"
 
 if __name__ == "__main__":
