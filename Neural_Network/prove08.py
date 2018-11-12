@@ -166,6 +166,8 @@ class NeuralNetworkClassifier(object):
             # OK, now that we have propogated forward, it is time to propogate backward
             layers = self.propogateBackward(layers, activationVectors, targetVector[j])
 
+            #printAccuracy(getAccuracy([targetVector[j]], [self.makePrediction(activationVectors[-1])]))
+
         return layers
 
     def predict(self, layers, test_input_vectors, test_target_vectors):
@@ -183,8 +185,8 @@ class NeuralNetworkClassifier(object):
             # Now, we make a prediction
             predictions.append(self.makePrediction(activationVectors[-1]))
 
-            accuracies.append(getAccuracy(test_target_vectors[i][0], predictions[i][0]))
-        return predictions, accuracies
+            #printAccuracy(getAccuracy([test_target_vectors[i]], [predictions[i]]))
+        return predictions
 
 def readData():
     filename = raw_input("Enter filename: ")
@@ -208,19 +210,22 @@ def discretizeTargets(target_values, numChoices):
     return discretizedTargets
 
 def getAccuracy(target_test, predictions):
-    if isinstance(target_test, int) or isinstance(target_test, float):
-        return accuracy_score([target_test], [predictions])
-    else:
-        accuracies = np.array([])
-        for i in range(len(target_test)):
-            accuracy = accuracy_score(target_test[i], predictions[i])
-            accuracies = np.append(accuracies, accuracy)
-        return np.mean(accuracies)
+    #if isinstance(target_test, int) or isinstance(target_test, float):
+    #    return accuracy_score([target_test], [predictions])
+    #else:
+    accuracies = np.array([])
+    for i in range(len(target_test)):
+        accuracy = accuracy_score(target_test[i], predictions[i])
+        accuracies = np.append(accuracies, accuracy)
+    return np.mean(accuracies)
 
 def plotAccuracies(accuracies):
     trace = go.Scatter(x = [i+1 for i in range(len(accuracies))], y = accuracies)
     data = [trace]
     py.plot(data, filename='neural-network-scatter2.html')
+
+def printAccuracy(accuracy):
+    print "Accuracy of Prediction: " + str("{:.2f}".format(accuracy * 100)) + "%"
 
 # load the dataset
 iris = loadData()
@@ -241,10 +246,10 @@ numTargets = 3
 target_train = discretizeTargets(target_train, numTargets)
 target_test = discretizeTargets(target_test, numTargets)
 
-neuralNetClassifier = NeuralNetworkClassifier(4, 4, .1)
+neuralNetClassifier = NeuralNetworkClassifier(3, 2, .9)
 neuralNetwork = neuralNetClassifier.fit(len(train_input_vectors[0]), numTargets)
 neuralNetwork = neuralNetClassifier.train(neuralNetwork, train_input_vectors, target_train)
-predictions, accuracies = neuralNetClassifier.predict(neuralNetwork, test_input_vectors, target_test)
+predictions = neuralNetClassifier.predict(neuralNetwork, test_input_vectors, target_test)
 accuracy = getAccuracy(target_test, predictions)
-plotAccuracies(accuracies)
-print "Accuracy of Prediction: " + str("{:.2f}".format(accuracy * 100)) + "%"
+print "final Accuracy"
+printAccuracy(accuracy)
